@@ -10,6 +10,7 @@ def plot_saver(pandas_plot_output, title, path = ''):
     fig = pandas_plot_output.get_figure()
     fig.savefig(path + title.replace(' ', '_') +  '.png')
 
+
 def plot_retdist(retshist,
                  retshist2 = None,
                  norm = False,
@@ -69,3 +70,4 @@ def plot_retdist(retshist,
     plt.title(title)
     if save:
         plt.savefig(savepath + title.replace(' ', '_') + '.png')
+    plt.show()

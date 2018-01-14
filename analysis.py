@@ -54,13 +54,14 @@ for iiii in range(curves_add):
 plt.ylabel('BTC price')
 plt.xlabel('Date')
 plt.title("Simulated bitcoin price paths ")
+plt.show()
 
 # MC option valuation
 
 current_price = S_t[-1]
 riskfree_rate = 1.01
 strike_price = 20000
-number_of_simulations = 10000
+number_of_simulations = 30000
 days_until_expiry = 365 # There are 365 bitcoin trading days in a year
 
 def MC_value_simulations(returns_to_sample, S0, rf, K, T, num_simulations = 10000, option_type = 'call'):
@@ -100,15 +101,15 @@ def MC_value_simulations(returns_to_sample, S0, rf, K, T, num_simulations = 1000
     # Discount value
     option_value = np.mean(vals_sum)/(1+(rf-1)*years)
 
-    print("{} option value: {} - Took {} sec".format(option_type, round(option_value, 2), round(time.time() - starttime, 1)))
+    print("{:4} option value: {:8} - Took {} sec".format(option_type, round(option_value, 1), round(time.time() - starttime, 1)))
 
     return option_value
 
 
 # Run option value simulation
 
-OV_call = MC_value_simulations(retshist, S0=current_price, rf=riskfree_rate, K=strike_price, T=days_until_expiry, num_simulations=30000)
-OV_put = MC_value_simulations(retshist, S0=current_price, rf=riskfree_rate, K=strike_price, T=days_until_expiry, num_simulations=30000, option_type='put')
+OV_call = MC_value_simulations(retshist, S0=current_price, rf=riskfree_rate, K=strike_price, T=days_until_expiry, num_simulations=number_of_simulations)
+OV_put = MC_value_simulations(retshist, S0=current_price, rf=riskfree_rate, K=strike_price, T=days_until_expiry, num_simulations=number_of_simulations, option_type='put')
 
 
 # Simple de-trending to remove the inherent upward trend in the simulations
@@ -117,10 +118,11 @@ detrended_return_history = retshist - np.mean(retshist)
 
 plot_retdist(retshist, retshist2=detrended_return_history, norm=True,add_legend = ['historical', 'detrended'],min_upperlimit= 0.13, max_lowerlimit=-0.13)
 
-OV_call_detrended = MC_value_simulations(detrended_return_history, S0=current_price, rf=riskfree_rate, K=strike_price, T=days_until_expiry, num_simulations=30000)
-OV_put_detrended = MC_value_simulations(detrended_return_history, S0=current_price, rf=riskfree_rate, K=strike_price, T=days_until_expiry, num_simulations=30000, option_type='put')
+OV_call_detrended = MC_value_simulations(detrended_return_history, S0=current_price, rf=riskfree_rate, K=strike_price, T=days_until_expiry, num_simulations=number_of_simulations)
+OV_put_detrended = MC_value_simulations(detrended_return_history, S0=current_price, rf=riskfree_rate, K=strike_price, T=days_until_expiry, num_simulations=number_of_simulations, option_type='put')
 
 # Using S&P500 returns
 
-OV_call_sp500 = MC_value_simulations(returns_sp500, S0=current_price, rf=riskfree_rate, K=strike_price, T=days_until_expiry, num_simulations=30000)
-OV_put_sp500 = MC_value_simulations(returns_sp500, S0=current_price, rf=riskfree_rate, K=strike_price, T=days_until_expiry, num_simulations=30000, option_type='put')
+OV_call_sp500 = MC_value_simulations(returns_sp500, S0=current_price, rf=riskfree_rate, K=strike_price, T=days_until_expiry, num_simulations=number_of_simulations)
+OV_put_sp500 = MC_value_simulations(returns_sp500, S0=current_price, rf=riskfree_rate, K=strike_price, T=days_until_expiry, num_simulations=number_of_simulations, option_type='put')
+
