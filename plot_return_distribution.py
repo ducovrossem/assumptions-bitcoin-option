@@ -10,7 +10,6 @@ def plot_saver(pandas_plot_output, title, path = ''):
     fig = pandas_plot_output.get_figure()
     fig.savefig(path + title.replace(' ', '_') +  '.png')
 
-
 def plot_retdist(retshist,
                  retshist2 = None,
                  norm = False,
@@ -21,7 +20,7 @@ def plot_retdist(retshist,
                  max_lowerlimit = None,
                  title = "Distribution of Returns"):
     """
-    Will plot create return distribution plot using gaussian_kde for array of returns retshist and optionally retshist2.
+    Plots return distribution using gaussian_kde for array of returns retshist and optionally retshist2.
 
     :param retshist: nparray with daily returns
     :param retshist2: nparray with daily returns

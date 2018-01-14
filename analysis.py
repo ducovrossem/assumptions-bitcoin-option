@@ -3,21 +3,10 @@ import numpy as np
 import time
 from matplotlib import pyplot as plt
 
-
 from plot_return_distribution import plot_retdist
 
 def sim_rets(m=0, sd = 1.2, N = 10000):
     return np.random.normal(m, sd, size=(N)) / 100.
-
-def sample_returns(sample_returns, num_to_sample):
-    """
-    sample from numpy array sample_returns num_to_sample
-    :param sample_returns: numpy array with returns
-    :param num_to_sample: number of returns to sample from the sample_returns array
-    :return:
-    """
-    return np.random.choice(sample_returns, num_to_sample)
-
 
 # Import Bitcoin prices (source: www.coindesk.com/price/)
 df = pd.read_csv("data/coindesk-bpi-USD-ohlc_data-2010-07-01_2018-01-14.csv")
@@ -50,13 +39,14 @@ plot_retdist(retshist, retshist2=retshist_sp500, norm=True,add_legend = ['Bitcoi
 totallen = 700
 num_days_to_sim = totallen - len(S_t)
 S_0 =  S_t[-1]
-xlist = [x for x in range(totallen - num_days_to_sim-1,totallen)]
+xlist = range(totallen - num_days_to_sim-1,totallen)
+
 curves_add = 5
 
 plt.plot(S_t)
 plt.xlim(0, totallen)
 for iiii in range(curves_add):
-    sampled_returns = np.append(0, sample_returns(retshist, num_to_sample=num_days_to_sim))
+    sampled_returns = np.append(0, np.random.choice(retshist, num_days_to_sim))
     sim_pt = np.cumprod(sampled_returns + 1)*S_0
     plt.plot(xlist, sim_pt, ls = '--')
 
@@ -96,10 +86,10 @@ def MC_value_simulations(returns_to_sample, S0, rf, K, T, num_simulations = 1000
         raise Exception("Unknown option type {} found".format(option_type))
 
     vals_sum = np.zeros(num_simulations)
-    tt = time.time()
+    starttime = time.time()
 
     for ii in range(num_simulations):
-        sampled_return_array = sample_returns(returns_to_sample, T)
+        sampled_return_array = np.random.choice(returns_to_sample, T)
         cumalative_return = np.prod(sampled_return_array + 1)
         S_T = S0 * cumalative_return
         option_value_T = option_payoff(S_T)
@@ -110,7 +100,7 @@ def MC_value_simulations(returns_to_sample, S0, rf, K, T, num_simulations = 1000
     # Discount value
     option_value = np.mean(vals_sum)/(1+(rf-1)*years)
 
-    print("{} option value: {} - Took {} sec".format(option_type, round(option_value, 2), round(time.time() - tt, 1)))
+    print("{} option value: {} - Took {} sec".format(option_type, round(option_value, 2), round(time.time() - starttime, 1)))
 
     return option_value
 
