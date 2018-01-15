@@ -4,7 +4,7 @@ Using simulations will help us understand why placing a value on a Bitcoin optio
 
 Valuation through monte carlo is done by simulating thousands of future Bitcoin price paths using past dynamics. Having a large amount of these simulated Bitcoin price paths allows us to get an idea of the option’s value.
 
-Simulation is based on historical return distribution of bitcoin. 
+Simulation is based on historical distribution of daily returns of bitcoin. 
 
 ### Sample output:
 ```
