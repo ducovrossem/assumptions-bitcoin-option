@@ -1,4 +1,4 @@
-**Simple monte carlo pricing of a Bitcoin call option - how assumptions can affect pricing by factor 100**
+## Simple monte carlo pricing of a Bitcoin call option - how assumptions can affect pricing by factor 100
 
 Using simulations will help us understand why placing a value on a Bitcoin option is hard. It also serves as a good example why relying purely on past historical data can be dangerous.
 
@@ -6,13 +6,13 @@ Valuation through monte carlo is done by simulating thousands of future Bitcoin 
 
 Simulation is based on historical return distribution of bitcoin. 
 
-Sample output:
+### Sample output:
 ```
 call (strike= 20000, expiration days=365) option value:   3144.7 - took 0.6 sec
 put  (strike= 20000, expiration days=365) option value:   8748.1 - took 0.6 sec
 ```
 
-Vanilla call and put option prices with strike price (K) 20000, days until expiry (T) 365, risk free rate (rf) 1% and current price of $14199
+Vanilla call and put option prices with strike price (*K*) 20000, days until expiry (*T*) 365, risk free rate (*rf*) 1% and current price of $14,199
 
 | Return Distribution        | Call           | Put  |
 | ------------- |:-------------:| -----:|
@@ -20,5 +20,5 @@ Vanilla call and put option prices with strike price (K) 20000, days until expir
 | historical de-trended      |  $3,072 |   $8,812 |
 | S&P500 historical | $209  |    $2,975 |
 
-Note call option value using raw historical data is nonsensical (option worth more than buying btc outright). Using raw historical data has its return distribution skewed - as reflected in Bitcoin’s meteoric rise.
+Note: The call option value using raw historical data is nonsensical (option worth more than buying btc outright). Using raw historical data has its return distribution skewed - as reflected in Bitcoin’s meteoric 'value' increase.
 
