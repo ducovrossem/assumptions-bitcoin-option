@@ -8,8 +8,8 @@ Simulation is based on historical return distribution of bitcoin.
 
 ### Sample output:
 ```
-call (strike= 20000, expiration days=365) option value:   3144.7 - took 0.6 sec
-put  (strike= 20000, expiration days=365) option value:   8748.1 - took 0.6 sec
+call (strike= 20000, expiration days=365) option value:   3072.1 - took 0.6 sec
+put  (strike= 20000, expiration days=365) option value:   8812.2 - took 0.6 sec
 ```
 
 Vanilla call and put option prices with strike price (*K*) 20000, days until expiry (*T*) 365, risk free rate (*rf*) 1% and current price of $14,199
@@ -20,5 +20,5 @@ Vanilla call and put option prices with strike price (*K*) 20000, days until exp
 | historical de-trended      |  $3,072 |   $8,812 |
 | S&P500 historical | $209  |    $2,975 |
 
-Note: The call option value using raw historical data is nonsensical (option worth more than buying btc outright). Using raw historical data has its return distribution skewed - as reflected in Bitcoin’s meteoric 'value' increase.
+Note: The call option value using raw historical data is nonsensical (option worth more than buying btc outright). Using raw historical data has its return distribution skewed - as reflected in Bitcoin’s meteoric price increase.
 
